@@ -98,7 +98,7 @@
                                         <a>
                                         <?php 
                                         session_start();
-                                        echo 'Bienvenue :'.$_SESSION['username'];
+                                        echo 'Bienvenue : '.$_SESSION['username'];
                                         echo '<a class="lien" href="logout.php"><i class="fa fa-sign-out"></i></a>';
                                          ?></a>
                                     </div>

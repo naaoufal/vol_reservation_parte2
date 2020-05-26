@@ -93,7 +93,7 @@
                                         <a>
                                         <?php 
                                         
-                                        echo 'Email :'.$_SESSION['email'];
+                                        echo 'Email : '.$_SESSION['email'];
                                         echo '<a class="lien" href="logout-2.php"><i class="fa fa-sign-out"></i></a>';
                                          ?></a>
                                     </div>
