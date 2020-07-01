@@ -1,9 +1,15 @@
+<?php
+
+session_start();
+ob_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Accueil</title>
+    <title>Reservation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,12 +30,109 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <style>
+        h1, h3{
+            padding : 40px;
+            font-family : arial;
+            margin : 10px;
+        }
+        input[type=submit]{
+            padding : 12px 20px;
+            background-color : #F91842;
+            border-color : #F91842;
+            color : white;
+            border-radius : 6px;
+            margin-top : 40px;
+            margin-bottom : 80px;
+        }
+        .lien{
+            margin : 10px;
+        }
+        h1{
+            margin-top : 100px;
+        }
+    </style>
 <body>
-    <div>
+        <!-- header-start -->
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid ">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <img src="img/logo.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-3 d-none d-lg-block">
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a>
+                                        <?php 
+                                        
+                                        echo 'Email : '.$_SESSION['email'];
+                                        // echo 'vout etes : '.$_SESSION['usertype'];
+                                        echo '<a class="lien" href="logout-2.php">'.$_SESSION['usertype'].' <i class="fa fa-sign-out"></i></a>';
+                                         ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+    <h2><?php // ?></h2>
+    <?php
+    $conn = mysqli_connect("localhost", "root", "", "gestion_vols");
+    $sql = "SELECT * FROM reservation WHERE Id_client = ".$_SESSION['Id_client'];
+    $result = mysqli_query($conn, $sql);
+    $vol = $result->fetch_assoc();
+    ?>
+    <center>
+    <h1>Les informations de votre Réservation</h1>
+    <div class="container">
+        <table id="data" class="table table-bordered">
+            <tr>
+                <th width="10%">Numero de Reservation</th>
+                <th width="10%">Numero de Vol Selecionné</th>
+                <th width="10%">Nom</th>
+                <th width="10%">Prenom</th>
+                <th width="10%">Address</th>
+                <th width="10%">Code Postal</th>
+                <th width="10%">Ville</th>
+                <th width="10%">Numero de Passport</th>
+                <th width="10%">Date de Reservation</th>
+            </tr>
+            <tr>
+                <td><?php print $vol['NumeroReservation'] ?></td>
+                <td><?php print $_SESSION['Id_vol'] ?></td>
+                <td><?php print $_SESSION['nom'] ?></td>
+                <td><?php print $_SESSION['prenom'] ?></td>
+                <td><?php print $_SESSION['address'] ?></td>
+                <td><?php print $_SESSION['codePostal'] ?></td>
+                <td><?php print $_SESSION['ville'] ?></td>
+                <td><?php print $_SESSION['numeroPassport'] ?></td>
+                <td><?php print $vol['DateReservation'] ?></td>
+            </tr>
+        </table>
+        <div>
+            <input type="submit" name="retour" onclick="window.location.href='recherche.php'" value="Retour au liste des vols">
+        </div>
     </div>
-    <!-- footer start -->
-    <footer class="footer">
+    </center>
+        <!-- footer start -->
+        <footer class="footer">
         <div class="footer_top">
             <div class="container">
                 <div class="row">
@@ -103,7 +206,7 @@
                             <h3 class="footer_title">
                                 Souscrire
                             </h3>
-                            <form action="#" class="newsletter_form">
+                            <form class="newsletter_form">
                                 <input type="text" placeholder="Enter your mail">
                                 <button type="submit">Souscrire</button>
                             </form>
@@ -129,6 +232,7 @@
             </div>
         </div>
     </footer>
+    
     <!--/ footer end  -->
 
         <!-- link that opens popup -->

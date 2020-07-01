@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php 
+    session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +96,8 @@
                                         <?php 
                                         
                                         echo 'Email : '.$_SESSION['email'];
-                                        echo '<a class="lien" href="logout-2.php"><i class="fa fa-sign-out"></i></a>';
+                                        // echo 'vout etes : '.$_SESSION['usertype'];
+                                        echo '<a class="lien" href="logout-2.php">'.$_SESSION['usertype'].' <i class="fa fa-sign-out"></i></a>';
                                          ?></a>
                                     </div>
                                 </div>
@@ -124,6 +127,7 @@
                                     $searchkey = $_POST['depart'];
                                     $searchkey1 = $_POST['arrive'];
                                     $sql = "SELECT * FROM vol WHERE lieu_depart LIKE '%$searchkey%' AND lieu_arrive LIKE '%$searchkey1%' ";
+                                    $_SESSION['email'] = $email;
                                 } else {
                                     $sql = "SELECT * FROM vol";
                                     $searchkey = "";
@@ -166,7 +170,7 @@
 
     <div id="table_class" class="container">
         <table id="data" class="table table-bordered">
-            <form action="page2.php" method="POST"></form>
+            <form action="" method="POST"></form>
                 <tr>
                     <th width="10%">Numero de vol</th>
                     <th width="10%">Lieu Depart</th>
@@ -186,7 +190,7 @@
                     <td><?php echo $row->date_arrive ?></td>
                     <td><?php echo $row->prix ?>DH</td>
                     <td><?php echo $row->nom_places ?></td>
-                    <td><a href="page2.php?id=<?php echo $row->id ?>"><button id="commande">Commander</button></a></td>
+                    <td><a href="reservation.php?id=<?php echo $row->id ?>"><button id="commande">Commander</button></a></td>
                 </tr>
                 <?php } ?>
             </form>

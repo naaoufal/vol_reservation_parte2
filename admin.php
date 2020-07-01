@@ -99,7 +99,7 @@
                                         <?php 
                                         session_start();
                                         echo 'Bienvenue : '.$_SESSION['username'];
-                                        echo '<a class="lien" href="logout.php"><i class="fa fa-sign-out"></i></a>';
+                                        echo '<a class="lien" href="logout.php">'.$_SESSION['usertype'].' <i class="fa fa-sign-out"></i></a>';
                                          ?></a>
                                     </div>
                                 </div>
@@ -147,13 +147,13 @@
                 <td><?php echo $row->date_arrive ?></td>
                 <td><?php echo $row->prix ?></td>
                 <td><?php echo $row->nom_places ?></td>
-                <td><center><a class="del-btn" href="server.php?del=<?php echo $row->id; ?>">Supprimer</a></center></td>
+                <td><center><a class="del-btn" href="actionRecord.php?del=<?php echo $row->id; ?>">Supprimer</a></center></td>
             </tr>
             <?php } ?>
         </thead>
    </table>
    <h2>Ajouter nouvel vol</h2>
-   <form action="server.php" method="POST" role="form">
+   <form action="actionRecord.php" method="POST" role="form">
         <div>
         <input name="numvol" type="text" placeholder="Entrer le numero de vol">
         <input name="place_depart" type="text" placeholder="Entrer le lieu de depart">
@@ -165,6 +165,36 @@
         </div>
         <input type="submit" id="sub" name="submit" value="Enregistrer">
    </form>
+   <?php
+
+    // insert config :
+    // if(isset($_POST["submit"])){
+    //     include "actionRecord.php";
+    //     $id = $_POST['numvol'];
+    //     $l_depart = $_POST['place_depart'];
+    //     $l_arrive = $_POST['place_arrive'];
+    //     $d_depart = $_POST['date_depart'];
+    //     $d_arrive = $_POST['date_arrive'];
+    //     $price = $_POST['prix'];
+    //     $num_place = $_POST['num_places'];
+
+    //     $obj = new Database();
+    //     $obj->saveRecords($id, $l_depart, $l_arrive, $d_depart, $d_arrive, $price, $num_place);
+    // }
+    // delete config :
+    // $connect = mysqli_connect("localhost", "root", "", "gestion_vols");
+    // if(isset($_GET['del'])){
+    //     $id = $_GET['del'];
+    //     $sql2 = "DELETE FROM vol WHERE id=$id";
+    //     $res = mysqli_query($connect, $sql2);
+    //     if($res){
+    //         echo'bien supprimée';
+    //         header('location: admin.php');
+    //     }else{
+    //         echo'erreur 500';
+    //     }
+    // }
+   ?>
    </div>
    </center>
         <!-- footer start -->

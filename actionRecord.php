@@ -1,10 +1,8 @@
 <?php 
 
-
-
 $connect = mysqli_connect("localhost", "root", "", "gestion_vols");
 
-// insert config
+// // insert config
 if(isset($_POST["submit"])){
     $id = $_POST['numvol'];
     $l_depart = $_POST['place_depart'];
@@ -14,7 +12,7 @@ if(isset($_POST["submit"])){
     $price = $_POST['prix'];
     $num_place = $_POST['num_places'];
 
-    $sql1 = "INSERT INTO vol(id, lieu_depart, lieu_arrive, date_depart, date_arrive, prix, nom_places) VALUES('$id', '$l_depart', '$l_arrive', '$d_depart', '$d_arrive', '$price', '$num_place')";
+    $sql1 = "INSERT INTO vol(id, lieu_depart, lieu_arrive, date_depart, date_arrive, prix, nom_places) VALUES('$id', '$l_depart', '$l_arrive', '$d_depart', '$d_arrive', '$price', '$num_place')" or die(mysqli_error($conn));
     $result = mysqli_query($connect, $sql1);
     if($result){
         echo'bien enregistrer';

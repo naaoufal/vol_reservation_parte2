@@ -1,5 +1,5 @@
 <?php 
-session_start(); 
+// session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@ session_start();
         a{
             cursor : pointer;
         }
-        #email, select, #password{
+        #email, select,#usertype, #password{
             border : solid 2px black;
             padding : 10px 18px;
             width : 100%;
@@ -47,6 +47,10 @@ session_start();
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 <body>
+<?php
+    include 'test.php';
+    $conne->Login(); 
+?>
     <div id="total" class="container mt-2">
         <div class="row justify-content-center align-items-center text-center p-2">
             <div class="m-1 col-sm-8 col-md-6 col-lg-4 shadow-sm p-3 mb-5 bg-white border rounded">
@@ -54,7 +58,7 @@ session_start();
                 <div>
                 </div>
                     <p class="text-center text-uppercase mt-3">Acces Admin</p>
-                    <form class="form text-center" action="test.php" method="POST">
+                    <form class="form text-center" action="" method="POST">
                         <div class="form-group input-group-md">
                             <input name="username" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Entrer votre nom d'admninistration">
                             <!--<div class="invalid-feedback">
@@ -68,7 +72,7 @@ session_start();
                             </div> -->
                         </div>
                         <div class="form-group input-group-md">
-                            <select name="usertype" id=""><option value="admin">admin</option><option value="user">user</option></select>
+                            <input id="usertype" type="text" readonly="readonly" class="form-control" name="usertype" value="admin">
                             <!--<div class="invalid-feedback">
                                 Errors in password during form validation, also add .is-invalid class to the input fields
                             </div> -->

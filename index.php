@@ -43,7 +43,7 @@
         }
         input[type=submit]{
             background-color : #F91842;
-            border :  #F91842;
+            border : #F91842;
         }
         #total{
             padding : 4%;
@@ -51,35 +51,16 @@
     </style>
 </head>
 <body>
-<div>
-<?php 
-// if(isset($_POST['login'])){
-//     $email = $_POST['email'];
-//     $password = $_POST['password'];
-//     $usertype = $_POST{'usertype'};
-
-//     $sql = "INSERT INTO inscription (email, password, usertype) VALUES (?,?,?)";
-//     $stminsert = $db->prepare($sql);
-//     $result = $stminsert->execute([$email, $password, $usertype]);
-
-//     if($result){
-//         echo 'Bien Enregistrer';
-//         $_SESSION['email'] = $email;
-//         header("Location: recherche.php");
-//     } else {
-//         echo 'erreur';
-//         header("Location: index.php");
-//     }
-// }
-
- ?>
-</div>
+<?php
+    include 'test2.php';
+    $conn->sign_up(); 
+?>
 <div class="container mt-2" id="total">
 	<div class="row justify-content-center align-items-center text-center p-2">
 		<div class="m-1 col-sm-8 col-md-6 col-lg-4 shadow-sm p-3 mb-5 bg-white border rounded">
 			<div class="pt-6 pb-7">
 				<p class="text-center text-uppercase mt-3">Connexion</p>
-				<form class="form text-center" action="test2.php" method="POST">
+				<form class="form text-center" action="" method="POST">
 					<div class="form-group input-group-md">
 						<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Entrer votre email">
 						<!--<div class="invalid-feedback">
