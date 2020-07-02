@@ -1,16 +1,24 @@
-<?php 
-     session_start();
- ?>
+<?php
+
+session_start();
+
+
+//$vol = $result->fetch_assoc()
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Reservation</title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
     <!-- CSS here -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
@@ -32,24 +40,14 @@
             font-family : arial;
             margin : 10px;
         }
-        .half{
-            width : 50%;
-            padding : 40px;
-        }
-        input[type=text]{
-            width : 100%;
-            padding : 12px 22px;
-            margin : 10px;
-            border : solid 2px #001D38;
-            border-radius : 6px;
-        }
         input[type=submit]{
             padding : 12px 20px;
             background-color : #F91842;
             border-color : #F91842;
             color : white;
             border-radius : 6px;
-            margin-bottom : 40px;
+            margin-top : 40px;
+            margin-bottom : 80px;
         }
         .lien{
             margin : 10px;
@@ -57,9 +55,15 @@
         h1{
             margin-top : 100px;
         }
+        .list{
+            margin : 10px 20px;
+        }
+        li{
+            padding: 10px;
+            text-align : center;
+        }
     </style>
-</head>
-<body>
+    <body>
         <!-- header-start -->
     <header>
         <div class="header-area ">
@@ -101,70 +105,51 @@
         </div>
     </header>
     <!-- header-end -->
-    <center>
-    <h1>Confirmer votre commande</h1>
-    <h3>vol selecionnée</h3>
-
-    <?php
-    $connect = mysqli_connect("localhost", "root", "", "gestion_vols");
-    $sql = "SELECT * FROM vol WHERE id =".$_GET['id'];
-    $result = $connect->query('SELECT * FROM vol WHERE id ='.$_GET['id']);
-    $vol = $result->fetch_assoc();
     
+    <?php
+
     ?>
+    <center>
+    <h1>Historiques de votre Reservations</h1>
+    <?php
+        $conn = mysqli_connect("localhost", "root", "", "gestion_vols");
 
-<div>
-    <div id="table_class" class="container">
+        // $result = $conn->query('SELECT * FROM reservation WHERE id_login = '.$_SESSION['unicodee']);
+        $result = $conn->query('SELECT * FROM client WHERE unicodee = '.$_SESSION['unicodee']);
+        // $num_res = $_SESSION['NumeroReservation'];
+        // $result = mysqli_query($conn, $sql);
+        $res = $result->fetch_assoc();
+    ?>
+    <div class="container">
         <table id="data" class="table table-bordered">
-                <tr>
-                    <th width="10%">Numero de vol</th>
-                    <th width="10%">Lieu Depart</th>
-                    <th width="10%">Lieu Arrive</th>
-                    <th width="10%">Date Depart</th>
-                    <th width="10%">Date Arrive</th>
-                    <th width="10%">Prix (DH)</th>
-                    <th width="10%">Nombre des places</th>
-                </tr>
-                <?php //while($vol = mysqli_fetch_assoc($result)){ ?>
-                <tr>
-                    <td><?php print $vol['id'] ?></td>
-                    <td><?php print $vol['lieu_depart'] ?></td>
-                    <td><?php print $vol['lieu_arrive'] ?></td>
-                    <td><?php print $vol['date_depart'] ?></td>
-                    <td><?php print $vol['date_arrive'] ?></td>
-                    <td><?php print $vol['prix'] ?>DH</td>
-                    <td><?php print $vol['nom_places'] ?></td>
-                </tr>
-                <?php //} ?>
+            <tr>
+                <th width="auto">Nom</th>
+                <th width="auto">Prenom</th>
+                <th width="auto">Address</th>
+                <th width="auto">Code Postal</th>
+                <th width="auto">Ville</th>
+                <th width="auto">Numero de Passport</th>
+                <th width="auto">Date de Reservation</th>
+            </tr>
+            <?php  while($row = mysqli_fetch_object($result)){ ?>
+            <tr>
+                <td><?php print $row->nom ?></td>
+                <td><?php print $row->prenom ?></td>
+                <td><?php print $row->address ?></td>
+                <td><?php print $row->codePostal ?></td>
+                <td><?php print $row->ville ?></td>
+                <td><?php print $row->numeroPassport ?></td>
+                <td><?php print $row->date_confirmation ?></td>
+            </tr>
+            <?php } ?>
         </table>
-
-        <form action="insert.php" method="POST">
-        <div class="half">
-         Nom :  <input name="nom" class="form-control" type="text" placeholder="Entrer votre nom"><br>
-         Prenom : <input name="prenom" class="form-control" type="text" placeholder="Entrer votre prenom"><br>
-         Address : <input name="address" class="form-control" type="text" placeholder="Entrer votre address"><br>
-         CodePostal : <input name="codePostal" class="form-control" type="text" placeholder="Entrer votre codepostal"><br>
-         Ville : <input name="ville" class="form-control" type="text" placeholder="Entrer votre ville"><br>
-         Numero Passport : <input name="numeroPassport" class="form-control" type="text" placeholder="Entrer numero passport"><br>
-         <!-- hidden input for unicode clients -->
-        <input name="unicodee" class="form-control" value="<?php include 'unicode.php'; ?>" type="text" readonly="readonly"><br>
-        <!-- <input name="unicodee" class="form-control" value="<?php //echo $vol['id'] ?>" type="text" readonly="readonly"><br> -->
-        </div>
         <div>
-            <input type="hidden" name="id" value="<?php print $vol['id'] ?>">
-            <input type="submit" value="Confirmer votre commande" name="submit1">
+            <input type="submit" name="retour" onclick="window.location.href='recherche.php'" value="Retour au liste des vols">
         </div>
-        </form>
-        <div>
-            <!-- <input type="submit" onclick="window.location.href='retour.php'" value="Retour au liste des vols"> -->
-        </div>
-
     </div>
-</div>
     </center>
-
-    <!-- footer start -->
-    <footer class="footer">
+        <!-- footer start -->
+        <footer class="footer">
         <div class="footer_top">
             <div class="container">
                 <div class="row">

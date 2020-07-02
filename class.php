@@ -9,6 +9,7 @@
         }
         function sign_up(){
             if(isset($_POST['sub'])){
+                
                 $user = $_POST['email'];
                 $pw = $_POST['password'];
                 $type = $_POST['usertype'];
@@ -21,6 +22,7 @@
                         // $data = $sql->fatch();
                         // $_SESSION['id'] = $data['id'];
                         // $_SESSION['id'] = true;
+                        // $_SESSION['unicode'];
                         $_SESSION['email'] = $user;
                         $_SESSION['usertype'] = $type;
                         header('location:recherche.php');

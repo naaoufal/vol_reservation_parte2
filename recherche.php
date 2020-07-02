@@ -96,8 +96,28 @@
                                         <?php 
                                         
                                         echo 'Email : '.$_SESSION['email'];
+
+                                        echo '<a class="lien" href="profile.php"><i class="fa fa-user"></i></a>';
                                         // echo 'vout etes : '.$_SESSION['usertype'];
                                         echo '<a class="lien" href="logout-2.php">'.$_SESSION['usertype'].' <i class="fa fa-sign-out"></i></a>';
+
+                                        // $conn = mysqli_connect("localhost", "root", "", "gestion_vols");
+
+                                        // $email = $_SESSION['email'];
+
+                                        // $sql = "SELECT * FROM inscription WHERE email = '$email'";
+
+                                        // $result = $conn->query($sql);
+
+                                        // if($result->num_rows > 0){
+                                        //     while($row = $result->fetch_assoc()){
+                                        //         $unicode = $row["unicode"];
+                                        //         echo '<a class="lien">'.$unicode.'</a>';
+                                        //         // $_SESSION['unicode'];
+                                        //     }
+                                        // }
+
+                                        // echo 'ID Client : '.$_SESSION['unicode'];
                                          ?></a>
                                     </div>
                                 </div>
@@ -126,10 +146,11 @@
                                 if(isset($_POST['depart'], $_POST['arrive'])){
                                     $searchkey = $_POST['depart'];
                                     $searchkey1 = $_POST['arrive'];
+                                    $email = $_SESSION['email'];
                                     $sql = "SELECT * FROM vol WHERE lieu_depart LIKE '%$searchkey%' AND lieu_arrive LIKE '%$searchkey1%' ";
-                                    $_SESSION['email'] = $email;
+                                    //
                                 } else {
-                                    $sql = "SELECT * FROM vol";
+                                    $sql = "SELECT * FROM vol WHERE statu = '1'";
                                     $searchkey = "";
                                     $searchkey1 = "";
                                 }
@@ -190,7 +211,7 @@
                     <td><?php echo $row->date_arrive ?></td>
                     <td><?php echo $row->prix ?>DH</td>
                     <td><?php echo $row->nom_places ?></td>
-                    <td><a href="reservation.php?id=<?php echo $row->id ?>"><button id="commande">Commander</button></a></td>
+                    <td><a href="reservation.php?id=<?php print $row->id ?>"><button id="commande">Commander</button></a></td>
                 </tr>
                 <?php } ?>
             </form>

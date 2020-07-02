@@ -68,6 +68,7 @@
     $codepostal = $_POST['codePostal'];
     $ville = $_POST['ville'];
     $num_passport = $_POST['numeroPassport'];
+    $unicode = $_POST['unicodee'];
       
     //   $query = "INSERT INTO client(nom, prenom, address, codePostal, ville, numeroPassport) VALUES('$name', '$prenom', '$address', '$codepostal', '$ville', '$num_passport')";
       
@@ -80,7 +81,7 @@
     //   }
 
     if(!empty($name) AND !empty($prenom) AND !empty($address) AND !empty($codepostal) AND !empty($ville) AND !empty($num_passport)){
-        $query = "INSERT INTO client(nom, prenom, address, codePostal, ville, numeroPassport) VALUES('$name', '$prenom', '$address', '$codepostal', '$ville', '$num_passport')";
+        $query = "INSERT INTO client(nom, prenom, address, codePostal, ville, date_confirmation, numeroPassport, unicodee) VALUES('$name', '$prenom', '$address', '$codepostal', '$ville', NOW(), '$num_passport', '$unicode')";
         $test=mysqli_query($conn,$query);
         if($test){
             echo "les informatios sont inserées";
@@ -96,7 +97,8 @@
   
       $id=$_SESSION['vol'];
       
-       $query2 = "INSERT INTO reservation(Id_client,Id_vol,DateReservation) VALUES('$row1','$id',NOW())";
+      $unicode = $_POST['unicodee'];
+       $query2 = "INSERT INTO reservation (Id_client,id_login,Id_vol,DateReservation) VALUES('$row1','$unicode','$id',NOW())";
        $test2=mysqli_query($conn,$query2);
 
        if($test2){
@@ -109,6 +111,7 @@
            $_SESSION['codePostal'] = $codepostal;
            $_SESSION['ville'] = $ville;
            $_SESSION['numeroPassport'] = $num_passport;
+           $_SESSION['unicodee'] = $unicode;
            header('location:confirmation.php');
        }else{
            echo "Erreur";

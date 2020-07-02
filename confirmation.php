@@ -15,6 +15,7 @@ ob_start();
 
 
     <!-- CSS here -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
@@ -51,6 +52,13 @@ ob_start();
         h1{
             margin-top : 100px;
         }
+        .list{
+            margin : 10px 20px;
+        }
+        li{
+            padding: 10px;
+            text-align : center;
+        }
     </style>
 <body>
         <!-- header-start -->
@@ -78,6 +86,8 @@ ob_start();
                                         <?php 
                                         
                                         echo 'Email : '.$_SESSION['email'];
+
+                                        echo '<a class="lien" href="profile.php"><i class="fa fa-user"></i></a>';
                                         // echo 'vout etes : '.$_SESSION['usertype'];
                                         echo '<a class="lien" href="logout-2.php">'.$_SESSION['usertype'].' <i class="fa fa-sign-out"></i></a>';
                                          ?></a>
@@ -92,7 +102,7 @@ ob_start();
         </div>
     </header>
     <!-- header-end -->
-    <h2><?php // ?></h2>
+    
     <?php
     $conn = mysqli_connect("localhost", "root", "", "gestion_vols");
     $sql = "SELECT * FROM reservation WHERE Id_client = ".$_SESSION['Id_client'];
@@ -105,25 +115,41 @@ ob_start();
         <table id="data" class="table table-bordered">
             <tr>
                 <th width="10%">Numero de Reservation</th>
-                <th width="10%">Numero de Vol Selecionné</th>
+                <!-- <th width="10%">Numero de Vol Selecionné</th>
                 <th width="10%">Nom</th>
                 <th width="10%">Prenom</th>
                 <th width="10%">Address</th>
                 <th width="10%">Code Postal</th>
                 <th width="10%">Ville</th>
-                <th width="10%">Numero de Passport</th>
+                <th width="10%">Numero de Passport</th> -->
                 <th width="10%">Date de Reservation</th>
+                <th width="10%">Details</th>
             </tr>
             <tr>
                 <td><?php print $vol['NumeroReservation'] ?></td>
-                <td><?php print $_SESSION['Id_vol'] ?></td>
-                <td><?php print $_SESSION['nom'] ?></td>
-                <td><?php print $_SESSION['prenom'] ?></td>
-                <td><?php print $_SESSION['address'] ?></td>
-                <td><?php print $_SESSION['codePostal'] ?></td>
-                <td><?php print $_SESSION['ville'] ?></td>
-                <td><?php print $_SESSION['numeroPassport'] ?></td>
                 <td><?php print $vol['DateReservation'] ?></td>
+                <td>
+                    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-red">Details</button>
+                    <div id="id01" class="w3-modal">
+                        <div class="w3-modal-content">
+                            <div class="w3-container">
+                                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                <ul class="list">
+                                    <li>Numero de Reservation : <?php print $vol['NumeroReservation'] ?></li>
+                                    <li>Numero de Vol Selecionné : <?php print $_SESSION['Id_vol'] ?></li>
+                                    <li>Nom : <?php print $_SESSION['nom'] ?></li>
+                                    <li>Prenom : <?php print $_SESSION['prenom'] ?></li>
+                                    <li>Address : <?php print $_SESSION['address'] ?></li>
+                                    <li>Code Postal : <?php print $_SESSION['codePostal'] ?></li>
+                                    <li>Ville : <?php print $_SESSION['ville'] ?></li>
+                                    <li>Numero de Passport : <?php print $_SESSION['numeroPassport'] ?></li>
+                                    <li>Date de Reservation : <?php print $vol['DateReservation'] ?></li>
+                                    <!-- <li>Unicode : <?php //print $_SESSION['unicodee'] ?></li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </table>
         <div>

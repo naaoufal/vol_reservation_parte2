@@ -71,6 +71,12 @@
         .lien{
             margin : 10px;
         }
+        #status{
+            margin : 30px 30px;
+        }
+        #id_name{
+            border : none;
+        }
     </style>
 </head>
 <body>
@@ -131,8 +137,23 @@
                 <th width="12%">Date Arrive</th>
                 <th width="12%">Prix (DH)</th>
                 <th width="12%">Nombre des places</th>
-                <th width="12%">Action</th>
+                <th width="12%">Status</th>
+                <th width="12%">Actions</th>
             </tr>
+            <?php
+                $conn = mysqli_connect("localhost", "root", "", "gestion_vols");
+
+                if(isset($_POST['update'])){
+                    $sql = "UPDATE vol SET statu = '".$_POST['status']."' WHERE id='".$_POST['id']."'";
+                    $run = mysqli_query($conn, $sql);
+                    if($run){
+                        echo '<script type="text/javascript">alert("this is good");</script>';
+                        
+                    }else{
+                        echo '<script type="text/javascript">alert("Erreur");</script>';
+                    }
+                }
+            ?>
             <?php
             $connect = new Mysqli("localhost", "root", "", "gestion_vols");
             $sql = "SELECT * FROM vol";
@@ -140,14 +161,18 @@
             while($row = mysqli_fetch_object($result)){ 
             ?>
             <tr>
-                <td><?php echo $row->id ?></td>
+                <?php echo '<form action="actionRecord.php" method="POST">'; ?>
+                <td><input type="text" value="<?php echo $row->id ?>" name="id" id="id_name"></td>
                 <td><?php echo $row->lieu_depart ?></td>
                 <td><?php echo $row->lieu_arrive ?></td>
                 <td><?php echo $row->date_depart ?></td>
                 <td><?php echo $row->date_arrive ?></td>
                 <td><?php echo $row->prix ?></td>
                 <td><?php echo $row->nom_places ?></td>
-                <td><center><a class="del-btn" href="actionRecord.php?del=<?php echo $row->id; ?>">Supprimer</a></center></td>
+                <td><input type="text" name="sta" value="<?php echo $row->statu ?>"></td>
+                <input type="hidden" name="status" value="<?php echo $row->id ?>">
+                <td><input type="submit" value="Changer" class="del-btn" name="update"></td>
+                <?php echo '</form>'; ?>
             </tr>
             <?php } ?>
         </thead>
@@ -162,39 +187,10 @@
         <input name="date_arrive" type="date" placeholder="Entrer la date d'arrive">
         <input name="prix" type="text" placeholder="Entrer le prix de vol">
         <input name="num_places" type="text" placeholder="Entrer le nombres des places">
+        <input type="text" name="status" placeholder="Entrer vorte status">
         </div>
         <input type="submit" id="sub" name="submit" value="Enregistrer">
    </form>
-   <?php
-
-    // insert config :
-    // if(isset($_POST["submit"])){
-    //     include "actionRecord.php";
-    //     $id = $_POST['numvol'];
-    //     $l_depart = $_POST['place_depart'];
-    //     $l_arrive = $_POST['place_arrive'];
-    //     $d_depart = $_POST['date_depart'];
-    //     $d_arrive = $_POST['date_arrive'];
-    //     $price = $_POST['prix'];
-    //     $num_place = $_POST['num_places'];
-
-    //     $obj = new Database();
-    //     $obj->saveRecords($id, $l_depart, $l_arrive, $d_depart, $d_arrive, $price, $num_place);
-    // }
-    // delete config :
-    // $connect = mysqli_connect("localhost", "root", "", "gestion_vols");
-    // if(isset($_GET['del'])){
-    //     $id = $_GET['del'];
-    //     $sql2 = "DELETE FROM vol WHERE id=$id";
-    //     $res = mysqli_query($connect, $sql2);
-    //     if($res){
-    //         echo'bien supprimée';
-    //         header('location: admin.php');
-    //     }else{
-    //         echo'erreur 500';
-    //     }
-    // }
-   ?>
    </div>
    </center>
         <!-- footer start -->
@@ -300,4 +296,12 @@
     </footer>
     <!--/ footer end  -->
 </body>
+<script>
+    jQuery(function(){
+        var id = $(this).data('id');
+        var status = $('#'+id).children(`td[data-target=status]`).text();
+
+        $('#status').val(status)
+    });
+</script>
 </html>

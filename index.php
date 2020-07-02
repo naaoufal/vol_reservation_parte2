@@ -78,7 +78,7 @@
                             <!--<div class="invalid-feedback">
                                 Errors in password during form validation, also add .is-invalid class to the input fields
                             </div> -->
-                        </div>
+                    </div>
 					<!-- <button name="login" class="btn btn-lg btn-block btn-primary mt-4" type="submit">
                         Connecter
                </button> -->
